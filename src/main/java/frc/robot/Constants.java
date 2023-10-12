@@ -311,5 +311,16 @@ public class Constants {
             }
         };
     }
+    public static final class PneumaticConstants{
 
+        public static final int kPneumaticHubModule = 2;
+
+        public static final int kAnalogPressureChannel = 1;
+
+        public static final double kMinPressure = 85.0;
+        public static final double kMaxPressure = 110.0;
+
+        public static final int kSolenoidForward = 0;
+        public static final int kSolenoidReverse = 1;
+    }
 }

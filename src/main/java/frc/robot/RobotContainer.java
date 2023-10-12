@@ -4,20 +4,18 @@
 
 package frc.robot;
 
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
-
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.Punch;
+import frc.robot.commands.UnPunch;
 import frc.robot.drive.SwerveDrive;
-import frc.robot.drive.commands.Punch;
-import frc.robot.drive.commands.UnPunch;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,13 +29,29 @@ public class RobotContainer {
   private AHRS navx;
   private SwerveDrive swerve;
 
-  private DoubleSolenoid punchPiston = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 0);//TODO: Figure out these values
+  private DoubleSolenoid punchPiston = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 0); //TODO: Figure out these values
+  private PneumaticHub pHub;
 
   public RobotContainer() {
     driver = new Joystick(Constants.kDriverPort);
 
-    //TODO: Change buttonNumber
     new JoystickButton(driver, 0).whileTrue(new RepeatCommand(new Punch(punchPiston))).onFalse(new UnPunch(punchPiston));
+    //TODO: Change buttonNumber
+
+    pHub = new PneumaticHub(2);
+    pHub.enableCompressorAnalog(Constants.PneumaticConstants.kMinPressure, Constants.PneumaticConstants.kMaxPressure);//TODO: check these
+
+    swerve = new SwerveDrive(navx);
+        
+    swerve.readoffsets();
+    swerve.initDashboard();
+    swerve.updateSmartDash();
+  }
+
+  public void disabledPeriodic(){
+    swerve.updateSmartDash();
+    swerve.writeOffsets();
+    swerve.readoffsets();
   }
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
