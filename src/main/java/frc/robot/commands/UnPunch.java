@@ -10,12 +10,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class UnPunch extends CommandBase {
   /** Creates a new UnPunch. */
-  DoubleSolenoid punchPiston;
-  public UnPunch(DoubleSolenoid punchPiston) {
+  Solenoid punchPiston;
+  public UnPunch(Solenoid punchPiston) {
     // Use addRequirements() here to declare subsystem dependencies.
     punchPiston = this.punchPiston;
   }
-
   Boolean finished = false;
 
   // Called when the command is initially scheduled.
@@ -25,7 +24,7 @@ public class UnPunch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    punchPiston.set(Value.kReverse);
+    punchPiston.set(false);
     finished = true;
   }
 

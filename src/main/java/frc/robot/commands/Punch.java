@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class Punch extends CommandBase {
   /** Creates a new Puncher. */
-  DoubleSolenoid punchPiston;
-  public Punch(DoubleSolenoid punchPiston) {
+  Solenoid punchPiston;
+  public Punch(Solenoid punchPiston) {
     // Use addRequirements() here to declare subsystem dependencies.
     punchPiston = this.punchPiston;
   }
-  boolean finished = false;
+  Boolean finished = false;
 
   // Called when the command is initially scheduled.
   @Override
@@ -24,7 +24,7 @@ public class Punch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    punchPiston.set(Value.kForward);
+    punchPiston.set(true);
     finished = true;
   }
 
