@@ -40,6 +40,7 @@ public class SwerveDrive extends SubsystemBase {
     public SwerveDrive(AHRS navx) {
         this.navx = navx;
         this.navx.calibrate();
+        
 
         this.speeds = new ChassisSpeeds();
         this.kinematics = new SwerveDriveKinematics(
@@ -84,8 +85,8 @@ public class SwerveDrive extends SubsystemBase {
 
                 this.odometry = new SwerveDriveOdometry(this.kinematics, this.getHeading(), this.getModulePositions());
 
-        readoffsets();
-        updateOffsets();
+        // readoffsets();
+        // updateOffsets();
         // System.out.println("Data: "+red+" "+yellow);
     }
 

@@ -8,15 +8,18 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.puncher.Puncher;
 
 public class Punch extends CommandBase {
   /** Creates a new Puncher. */
-  Solenoid punchPiston;
-  public Punch(Solenoid punchPiston) {
+  Puncher punchie;
+  public Punch(Puncher punchie) {
     // Use addRequirements() here to declare subsystem dependencies.
-    punchPiston = this.punchPiston;
+    // this.punchPiston = punchPiston;
+    this.punchie = punchie;
+    addRequirements(punchie);
   }
-  Boolean finished = false;
+  // Boolean finished = false;
 
   // Called when the command is initially scheduled.
   @Override
@@ -25,8 +28,7 @@ public class Punch extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    punchPiston.set(true);
-    finished = true;
+    punchie.punch();
   }
 
   // Called once the command ends or is interrupted.
@@ -36,6 +38,7 @@ public class Punch extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return finished;
+    // return finished;
+    return true;
   }
 }

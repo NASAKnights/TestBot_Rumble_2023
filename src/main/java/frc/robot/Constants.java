@@ -25,6 +25,8 @@ public class Constants {
 
     public static final boolean kDemoMode = true;
 
+    public static final boolean kOnePlayer = true;
+
     public static final int kDriverPort = 0;
     public static final int kOperatorPort = 1;
     public static final SPI.Port kNavXPort = SPI.Port.kMXP;

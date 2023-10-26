@@ -19,6 +19,7 @@ import frc.robot.commands.Punch;
 import frc.robot.commands.UnPunch;
 import frc.robot.drive.SwerveDrive;
 import frc.robot.drive.commands.DriveCommand;
+import frc.robot.puncher.Puncher;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,22 +31,22 @@ public class RobotContainer {
   private Joystick driver;
   private Joystick puncher;
 
+  private Puncher punchie;
+
   private AHRS navx;
   private SwerveDrive swerve;
 
-  // private DoubleSolenoid punchPiston = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 0); //TODO: Figure out these values
-  private Solenoid punchPiston;
   private PneumaticHub pHub;
 
   public RobotContainer() {
     driver = new Joystick(Constants.kDriverPort);
     puncher = new Joystick(Constants.kOperatorPort);
 
-    
+    navx = new AHRS(Constants.kNavXPort);
 
-    pHub = new PneumaticHub(2);
+    pHub = new PneumaticHub(1);
     pHub.enableCompressorAnalog(Constants.PneumaticConstants.kMinPressure, Constants.PneumaticConstants.kMaxPressure);//TODO: check these
-    punchPiston = new Solenoid(2, PneumaticsModuleType.REVPH, 0);
+    punchie = new Puncher();
 
     swerve = new SwerveDrive(navx);
         
@@ -71,8 +72,13 @@ public class RobotContainer {
     // new JoystickButton(driver, 5).onFalse(new ToggleSlow(swerve))
     //                                            .onTrue(new ToggleTurbo(swerve));
 
-    new JoystickButton(puncher, 1).whileTrue(new RepeatCommand(new Punch(punchPiston))).onFalse(new UnPunch(punchPiston));
-    //TODO: Change buttonNumber
+    if (Constants.kOnePlayer) {
+      new JoystickButton(driver, 2).onTrue(new Punch(punchie)).onFalse(new UnPunch(punchie));
+    }
+    else {
+      new JoystickButton(puncher, 1).onTrue(new Punch(punchie)).onFalse(new UnPunch(punchie));
+    }
+
   }
 
   public Command getAutonomousCommand() {
