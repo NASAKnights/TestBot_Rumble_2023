@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.blower.Blower;
 import frc.robot.commands.Punch;
 import frc.robot.commands.UnPunch;
 import frc.robot.drive.SwerveDrive;
@@ -35,6 +36,7 @@ public class RobotContainer {
 
   private AHRS navx;
   private SwerveDrive swerve;
+  private Blower blower;
 
   private PneumaticHub pHub;
 
@@ -56,6 +58,7 @@ public class RobotContainer {
 
     swerve.setDefaultCommand(new DriveCommand(driver, swerve));
     configureButtonBindings();
+    blower = new Blower();
   }
 
   public void disabledPeriodic(){
@@ -74,9 +77,11 @@ public class RobotContainer {
 
     if (Constants.kOnePlayer) {
       new JoystickButton(driver, 2).onTrue(new Punch(punchie)).onFalse(new UnPunch(punchie));
+      new JoystickButton(driver, 3).onTrue(new InstantCommand(blower::Start)).onFalse(new InstantCommand(blower::Stop));
     }
     else {
       new JoystickButton(puncher, 1).onTrue(new Punch(punchie)).onFalse(new UnPunch(punchie));
+      new JoystickButton(puncher, 3).onTrue(new InstantCommand(blower::Start)).onFalse(new InstantCommand(blower::Stop));
     }
 
   }
