@@ -56,28 +56,28 @@ public class Constants {
     public static final int kFrontLeftDriveMotorID = 10;
     public static final int kFrontLeftTurnMotorID = 11;
     public static final int kFrontLeftEncoderID = 12;
-    public static final Rotation2d kFrontLeftOffset = Rotation2d.fromDegrees(103.711); // module 1
+    public static final Rotation2d kFrontLeftOffset = Rotation2d.fromDegrees(183.691); // module 1
     public static final Translation2d kFrontLeftPosition = new Translation2d(kTrackwidthMeters / 2.0,
             kWheelbaseMeters / 2.0);
 
     public static final int kFrontRightDriveMotorID = 20;
     public static final int kFrontRightTurnMotorID = 21;
     public static final int kFrontRightEncoderID = 22;
-    public static final Rotation2d kFrontRightOffset = Rotation2d.fromDegrees(318.427); // 139.658 // 139.658 // module 2
+    public static final Rotation2d kFrontRightOffset = Rotation2d.fromDegrees(45.429); // 139.658 // 139.658 // module 2
     public static final Translation2d kFrontRightPosition = new Translation2d(kTrackwidthMeters / 2.0,
             -kWheelbaseMeters / 2.0);
 
     public static final int kBackLeftDriveMotorID = 30;
     public static final int kBackLeftTurnMotorID = 31;
     public static final int kBackLeftEncoderID = 32;
-    public static final Rotation2d kBackLeftOffset = Rotation2d.fromDegrees(275.273);  // 95.977 // 96.680 // module 3
+    public static final Rotation2d kBackLeftOffset = Rotation2d.fromDegrees(4.922);  // 95.977 // 96.680 // module 3
     public static final Translation2d kBackLeftPosition = new Translation2d(-kTrackwidthMeters / 2.0,
             kWheelbaseMeters / 2.0);
 
     public static final int kBackRightDriveMotorID = 40;
     public static final int kBackRightTurnMotorID = 41;
     public static final int kBackRightEncoderID = 42;
-    public static final Rotation2d kBackRightOffset = Rotation2d.fromDegrees(87.539); // 265.517 // -93.867 // module 4
+    public static final Rotation2d kBackRightOffset = Rotation2d.fromDegrees(177.848); // 265.517 // -93.867 // module 4
     public static final Translation2d kBackRightPosition = new Translation2d(-kTrackwidthMeters / 2.0,
             -kWheelbaseMeters / 2.0);
 
@@ -88,9 +88,9 @@ public class Constants {
 
     // select color and then version
     public static final double[][] encoderoffsets = {{358.188 - 25.0 - 8.0 - 14.0 - 5.0 - 13.0, 103.711, 0.0}, // Red 1, 5, 9
-                                                    {330.654 + 7 - 3.5, 318.427,  0.0}, // Blue 2, 6, 10
-                                                    {257.607, 275.273, 0.0}, // green 3, 7, 11
-                                                    {103.359 - 5.0 - 4.0, 87.539,  0.0}}; // yellow 4, 8, 12
+                                                    {330.654 + 7 - 3.5,                         318.427,  0.0}, // Blue 2, 6, 10
+                                                    {257.607,                                   275.273, 0.0}, // green 3, 7, 11
+                                                    {103.359 - 5.0 - 4.0,                       87.539,  0.0}}; // yellow 4, 8, 12
 
     public static double kDriveLimit = kDemoMode? 0.4 : 0.5; // 0.7 fast
     public static double kRotationLimit = kDriveLimit;
@@ -186,7 +186,7 @@ public class Constants {
         public static final double kDriveD = 0.0;
         public static final double kDriveF = 0; // 0.25 / 0.54 * 0.1;
 
-        public static final double kTurnP = 0.6;
+        public static final double kTurnP = 1.2; // 0.6
         public static final double kTurnI = 0;
         public static final double kTurnD = 12.0; // 12.0
         public static final double kTurnF = 0.0;

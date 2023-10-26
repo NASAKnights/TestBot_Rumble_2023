@@ -40,6 +40,7 @@ public class SwerveDrive extends SubsystemBase {
     public SwerveDrive(AHRS navx) {
         this.navx = navx;
         this.navx.calibrate();
+        this.navx.setAngleAdjustment(0);
         
 
         this.speeds = new ChassisSpeeds();
@@ -171,6 +172,11 @@ public class SwerveDrive extends SubsystemBase {
         blue = (int) SmartDashboard.getNumber("Blue encoder", 0);
         green = (int) SmartDashboard.getNumber("Green encoder", 0);
         yellow = (int) SmartDashboard.getNumber("Yellow encoder", 0);
+
+        // SmartDashboard.putNumber("Red module", this.getModulePositions()[0].angle.getDegrees());
+        // SmartDashboard.putNumber("Blue module", this.getModulePositions()[1].angle.getDegrees());
+        // SmartDashboard.putNumber("Green module", this.getModulePositions()[2].angle.getDegrees());
+        // SmartDashboard.putNumber("Yellow module", this.getModulePositions()[3].angle.getDegrees());
         
     }
 
