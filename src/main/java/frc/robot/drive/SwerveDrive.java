@@ -40,8 +40,7 @@ public class SwerveDrive extends SubsystemBase {
     public SwerveDrive(AHRS navx) {
         this.navx = navx;
         this.navx.calibrate();
-        this.navx.setAngleAdjustment(0);
-        
+        this.navx.setAngleAdjustment(90);
 
         this.speeds = new ChassisSpeeds();
         this.kinematics = new SwerveDriveKinematics(
@@ -86,8 +85,8 @@ public class SwerveDrive extends SubsystemBase {
 
                 this.odometry = new SwerveDriveOdometry(this.kinematics, this.getHeading(), this.getModulePositions());
 
-        // readoffsets();
-        // updateOffsets();
+        readoffsets();
+        updateOffsets();
         // System.out.println("Data: "+red+" "+yellow);
     }
 
@@ -128,7 +127,7 @@ public class SwerveDrive extends SubsystemBase {
 
     }
     public void setSlowSpeed(){
-        Constants.kDriveLimit = 0.15;
+        Constants.kDriveLimit = 0.3;
     }
 
     public Rotation2d getHeading() {
@@ -172,11 +171,6 @@ public class SwerveDrive extends SubsystemBase {
         blue = (int) SmartDashboard.getNumber("Blue encoder", 0);
         green = (int) SmartDashboard.getNumber("Green encoder", 0);
         yellow = (int) SmartDashboard.getNumber("Yellow encoder", 0);
-
-        // SmartDashboard.putNumber("Red module", this.getModulePositions()[0].angle.getDegrees());
-        // SmartDashboard.putNumber("Blue module", this.getModulePositions()[1].angle.getDegrees());
-        // SmartDashboard.putNumber("Green module", this.getModulePositions()[2].angle.getDegrees());
-        // SmartDashboard.putNumber("Yellow module", this.getModulePositions()[3].angle.getDegrees());
         
     }
 

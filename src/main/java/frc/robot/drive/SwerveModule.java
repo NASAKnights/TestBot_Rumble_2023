@@ -175,7 +175,7 @@ public class SwerveModule {
     public void updateSmartDash() {
         SmartDashboard.putNumber(id + "Last Angle", lastAngle);
         // SmartDashboard.putNumber(id + " Current Angle", getAngleRotation2d().getDegrees());
-        SmartDashboard.putNumber(id + " Module Encoder Raw Position", turnEncoder.getAbsolutePosition());
+        // SmartDashboard.putNumber(id + " Module Encoder Raw Position", turnEncoder.getAbsolutePosition());
         // SmartDashboard.putNumber(id + " Motor Integrated Sensor Position", turn.getSelectedSensorPosition());
         SmartDashboard.putNumber(id + "Magnet offset", angleOffset.getDegrees());
         // SmartDashboard.putNumber(id + " Module Angle", turnEncoder.getPosition());

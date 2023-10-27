@@ -70,7 +70,7 @@ public class Constants {
     public static final int kBackLeftDriveMotorID = 30;
     public static final int kBackLeftTurnMotorID = 31;
     public static final int kBackLeftEncoderID = 32;
-    public static final Rotation2d kBackLeftOffset = Rotation2d.fromDegrees(4.922);  // 95.977 // 96.680 // module 3
+    public static final Rotation2d kBackLeftOffset = Rotation2d.fromDegrees(184.922);  // 95.977 // 96.680 // module 3
     public static final Translation2d kBackLeftPosition = new Translation2d(-kTrackwidthMeters / 2.0,
             kWheelbaseMeters / 2.0);
 
@@ -87,12 +87,12 @@ public class Constants {
     //-----------testing--------------------
 
     // select color and then version
-    public static final double[][] encoderoffsets = {{358.188 - 25.0 - 8.0 - 14.0 - 5.0 - 13.0, 103.711, 0.0}, // Red 1, 5, 9
-                                                    {330.654 + 7 - 3.5,                         318.427,  0.0}, // Blue 2, 6, 10
-                                                    {257.607,                                   275.273, 0.0}, // green 3, 7, 11
-                                                    {103.359 - 5.0 - 4.0,                       87.539,  0.0}}; // yellow 4, 8, 12
+    public static final double[][] encoderoffsets = {{103.711, 358.188 - 25.0 - 8.0 - 14.0 - 5.0 - 13.0,  0.0}, // Red 1, 5, 9
+                                                    {318.427, 330.654 + 7 - 3.5,                           0.0}, // Blue 2, 6, 10
+                                                    {275.273, 257.607,                                    0.0}, // green 3, 7, 11
+                                                    {87.539, 103.359 - 5.0 - 4.0,                         0.0}}; // yellow 4, 8, 12
 
-    public static double kDriveLimit = kDemoMode? 0.4 : 0.5; // 0.7 fast
+    public static double kDriveLimit = kDemoMode? 0.3 : 0.5; // 0.7 fast
     public static double kRotationLimit = kDriveLimit;
 
 

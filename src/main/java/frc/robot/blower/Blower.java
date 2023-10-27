@@ -4,22 +4,26 @@
 
 package frc.robot.blower;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.control.motors.NKTalonFX;
+import frc.lib.control.motors.NKVictorSPX;
 
 public class Blower extends SubsystemBase {
   /** Creates a new blower. */
-  NKTalonFX blowerMotor;
+  NKVictorSPX blowerMotor;
   public Blower(){
-    blowerMotor = new NKTalonFX(7);
+    blowerMotor = new NKVictorSPX(8);
+    blowerMotor.setNeutralMode(NeutralMode.Brake);
   }
 
-  public void Start() {
-    blowerMotor.set(0.2);
+  public void start() {
+    blowerMotor.set(0.6);
   }
 
-  public void Stop(){
+  public void stop(){
     blowerMotor.set(0);
   }
 

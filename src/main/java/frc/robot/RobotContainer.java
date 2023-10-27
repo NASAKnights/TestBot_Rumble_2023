@@ -20,6 +20,8 @@ import frc.robot.commands.Punch;
 import frc.robot.commands.UnPunch;
 import frc.robot.drive.SwerveDrive;
 import frc.robot.drive.commands.DriveCommand;
+import frc.robot.drive.commands.ToggleSlow;
+import frc.robot.drive.commands.ToggleTurbo;
 import frc.robot.puncher.Puncher;
 
 /**
@@ -43,6 +45,7 @@ public class RobotContainer {
   public RobotContainer() {
     driver = new Joystick(Constants.kDriverPort);
     puncher = new Joystick(Constants.kOperatorPort);
+    blower = new Blower();
 
     navx = new AHRS(Constants.kNavXPort);
 
@@ -58,7 +61,7 @@ public class RobotContainer {
 
     swerve.setDefaultCommand(new DriveCommand(driver, swerve));
     configureButtonBindings();
-    blower = new Blower();
+    
   }
 
   public void disabledPeriodic(){
@@ -72,16 +75,16 @@ public class RobotContainer {
     new JoystickButton(driver, 1).onTrue(new InstantCommand(swerve::resetHeading));
 
     // add a slow and fast button??
-    // new JoystickButton(driver, 5).onFalse(new ToggleSlow(swerve))
-    //                                            .onTrue(new ToggleTurbo(swerve));
+    new JoystickButton(driver, 5).onFalse(new ToggleSlow(swerve))
+                                               .onTrue(new ToggleTurbo(swerve));
 
     if (Constants.kOnePlayer) {
       new JoystickButton(driver, 2).onTrue(new Punch(punchie)).onFalse(new UnPunch(punchie));
-      new JoystickButton(driver, 3).onTrue(new InstantCommand(blower::Start)).onFalse(new InstantCommand(blower::Stop));
+      new JoystickButton(driver, 3).onTrue(new InstantCommand(blower::start)).onFalse(new InstantCommand(blower::stop));
     }
     else {
       new JoystickButton(puncher, 1).onTrue(new Punch(punchie)).onFalse(new UnPunch(punchie));
-      new JoystickButton(puncher, 3).onTrue(new InstantCommand(blower::Start)).onFalse(new InstantCommand(blower::Stop));
+      new JoystickButton(puncher, 3).onTrue(new InstantCommand(blower::start)).onFalse(new InstantCommand(blower::stop));
     }
 
   }
