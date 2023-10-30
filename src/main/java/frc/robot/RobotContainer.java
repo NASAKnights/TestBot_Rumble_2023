@@ -8,6 +8,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -15,14 +16,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.auto.commands.AutoTest;
+import frc.robot.auto.commands.AutoWon;
 import frc.robot.blower.Blower;
-import frc.robot.commands.Punch;
-import frc.robot.commands.UnPunch;
 import frc.robot.drive.SwerveDrive;
 import frc.robot.drive.commands.DriveCommand;
 import frc.robot.drive.commands.ToggleSlow;
 import frc.robot.drive.commands.ToggleTurbo;
 import frc.robot.puncher.Puncher;
+import frc.robot.puncher.commands.Punch;
+import frc.robot.puncher.commands.UnPunch;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,9 +35,11 @@ import frc.robot.puncher.Puncher;
  */
 public class RobotContainer {
   private Joystick driver;
-  private Joystick puncher;
+  private Joystick operator;
 
   private Puncher punchie;
+  private AutoWon newBalance;
+  private AutoTest autoTest;
 
   private AHRS navx;
   private SwerveDrive swerve;
@@ -44,7 +49,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     driver = new Joystick(Constants.kDriverPort);
-    puncher = new Joystick(Constants.kOperatorPort);
+    operator = new Joystick(Constants.kOperatorPort);
     blower = new Blower();
 
     navx = new AHRS(Constants.kNavXPort);
@@ -59,15 +64,18 @@ public class RobotContainer {
     swerve.initDashboard();
     swerve.updateSmartDash();
 
+
     swerve.setDefaultCommand(new DriveCommand(driver, swerve));
     configureButtonBindings();
-    
+    newBalance = new AutoWon(swerve, punchie);
+    autoTest = new AutoTest(swerve);
   }
 
   public void disabledPeriodic(){
     swerve.updateSmartDash();
     // swerve.writeOffsets();
     // swerve.readoffsets();
+    SmartDashboard.putNumber("Pressure", pHub.getPressure(0));
   }
 
   private void configureButtonBindings() {
@@ -83,14 +91,27 @@ public class RobotContainer {
       new JoystickButton(driver, 3).onTrue(new InstantCommand(blower::start)).onFalse(new InstantCommand(blower::stop));
     }
     else {
-      new JoystickButton(puncher, 1).onTrue(new Punch(punchie)).onFalse(new UnPunch(punchie));
-      new JoystickButton(puncher, 3).onTrue(new InstantCommand(blower::start)).onFalse(new InstantCommand(blower::stop));
+      new JoystickButton(operator, 1).onTrue(new Punch(punchie)).onFalse(new UnPunch(punchie));
+      new JoystickButton(operator, 3).onTrue(new InstantCommand(blower::start)).onFalse(new InstantCommand(blower::stop));
     }
 
   }
 
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;//TODO: Change this
+    //return autoTest;
+    return newBalance;
+  }
+
+  public void invertHeading270() {
+    swerve.invertHeading270();
+  }
+
+  public void invertHeading90() {
+    swerve.invertHeading90();
+  }
+
+  public void resetHeading() {
+    swerve.resetHeading();
   }
 }

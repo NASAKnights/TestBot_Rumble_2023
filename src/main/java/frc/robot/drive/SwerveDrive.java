@@ -142,6 +142,13 @@ public class SwerveDrive extends SubsystemBase {
         navx.setAngleAdjustment(180);
     }
 
+    public void invertHeading90(){
+        navx.setAngleAdjustment(90);
+    }
+    public void invertHeading270() {
+        navx.setAngleAdjustment(270);
+    }
+
     public void resetHeadingOffset(){
         navx.setAngleAdjustment(0);
     }
@@ -171,6 +178,11 @@ public class SwerveDrive extends SubsystemBase {
         blue = (int) SmartDashboard.getNumber("Blue encoder", 0);
         green = (int) SmartDashboard.getNumber("Green encoder", 0);
         yellow = (int) SmartDashboard.getNumber("Yellow encoder", 0);
+
+        SmartDashboard.putNumber("roll", navx.getRoll());
+        SmartDashboard.putNumber("pitch", navx.getPitch());
+        SmartDashboard.putNumber("yaw", navx.getYaw());
+
         
     }
 
